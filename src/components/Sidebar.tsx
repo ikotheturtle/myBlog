@@ -25,8 +25,20 @@ export default function Sidebar() {
     { name: "projects", icon: Folder, href: "#projects" },
   ]
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   return (
-    <div className="w-full h-16 lg:w-16 lg:h-full bg-bg-dark-hard border-t lg:border-t-0 lg:border-r border-bg-medium flex flex-row lg:flex-col justify-around lg:justify-start items-center px-2 py-0 lg:px-0 lg:py-6 gap-0 lg:gap-6 shrink-0 z-50">
+    <div 
+      className="fixed bottom-0 left-0 lg:static w-full lg:w-16 h-16 lg:h-full bg-bg-dark-hard border-t lg:border-t-0 lg:border-r border-bg-medium flex flex-row lg:flex-col justify-around lg:justify-start items-center px-2 lg:pb-6 pt-0 lg:pt-6 lg:px-0 gap-0 lg:gap-6 shrink-0 z-[100]"
+      style={isMobile ? { paddingBottom: 'env(safe-area-inset-bottom)', height: 'calc(4rem + env(safe-area-inset-bottom))' } : {}}
+    >
       {navItems.map((item) => {
         const Icon = item.icon
         const isActive = currentSection === item.name

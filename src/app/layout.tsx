@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${roboto.className} antialiased bg-bg-dark-hard text-fg h-screen overflow-hidden flex`}>
+      <body className={`${roboto.className} antialiased bg-bg-dark-hard text-fg h-screen overflow-hidden flex`} style={{ height: "100dvh" }}>
         {/* Main Desktop Container */}
         <div className="flex-1 flex flex-col min-w-0 bg-bg-dark relative">
           <Waybar />
