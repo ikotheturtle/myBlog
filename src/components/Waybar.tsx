@@ -61,7 +61,7 @@ export default function Waybar({ currentSection: propSection }: WaybarProps) {
           {/* Left: Workspaces + Current Page */}
           <div className="flex items-center gap-2">
             {/* Workspace numbers */}
-            <div className="flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-1">
               {workspaces.map(ws => (
                 <a
                   key={ws.id}
@@ -87,7 +87,7 @@ export default function Waybar({ currentSection: propSection }: WaybarProps) {
             </div>
 
             {/* Separator */}
-            <div className="text-gray">|</div>
+            <div className="hidden lg:block text-gray">|</div>
 
             {/* Current page indicator */}
             <div className="text-green">
@@ -102,25 +102,25 @@ export default function Waybar({ currentSection: propSection }: WaybarProps) {
 
           {/* Right: System info (dummy) */}
           <div className="flex items-center gap-3 text-fg-dim">
-            <div className="flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-1">
               <Cpu size={16} className="text-blue" />
               <span>45%</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-1">
               <MemoryStick size={16} className="text-yellow" />
               <span>8.2GB</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="hidden sm:flex items-center gap-1">
               <Wifi size={16} className="text-green" />
               <span>WiFi</span>
             </div>
-            <div className="flex items-center gap-1">
+            <div className="hidden sm:flex items-center gap-1">
               <Volume2 size={16} className="text-aqua" />
               <span>75%</span>
             </div>
             <div className="flex items-center gap-1">
               <Battery size={16} className="text-orange" />
-              <span>85%</span>
+              <span className="hidden sm:inline">85%</span>
             </div>
             <div className="text-red hover:text-yellow cursor-pointer transition-colors">
               <Power size={18} />

@@ -26,6 +26,7 @@ export default function DesktopWindow({
 }: DesktopWindowProps) {
   const [pos, setPos] = useState(initialPos)
   const [isDragging, setIsDragging] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   
   // Refs for smooth dragging without React re-renders
   const windowRef = useRef<HTMLDivElement>(null)
@@ -34,7 +35,14 @@ export default function DesktopWindow({
   const rafRef = useRef<number | null>(null)
 
   useEffect(() => {
-    if (!isDragging) return
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  useEffect(() => {
+    if (!isDragging || isMobile) return
 
     const onMouseMove = (e: MouseEvent) => {
       const newX = e.pageX - relRef.current.x
@@ -67,7 +75,7 @@ export default function DesktopWindow({
   if (!isOpen) return null
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    if (e.button !== 0) return // Only left click
+    if (e.button !== 0 || isMobile) return // Only left click and not mobile
     onFocus()
 
     setIsDragging(true)
@@ -81,8 +89,8 @@ export default function DesktopWindow({
   return (
     <div
       ref={windowRef}
-      className={`absolute w-[90%] md:w-[80%] lg:w-[60%] min-h-[400px] h-[68%] bg-bg-dark/50 backdrop-blur-md border border-bg-medium rounded-lg shadow-2xl flex flex-col animate-in zoom-in-95 ${isDragging ? "select-none transition-none" : "duration-200"}`}
-      style={{
+      className={`fixed lg:absolute inset-2 top-14 bottom-20 lg:inset-auto lg:w-[60%] lg:min-h-[400px] lg:h-[68%] bg-bg-dark/95 lg:bg-bg-dark/50 backdrop-blur-md border border-bg-medium rounded-lg shadow-2xl flex flex-col animate-in zoom-in-95 ${isDragging ? "select-none transition-none" : "duration-200"}`}
+      style={isMobile ? { zIndex } : {
         left: `${pos.x}px`,
         top: `${pos.y}px`,
         zIndex: zIndex

@@ -26,7 +26,7 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="w-16 h-full bg-bg-dark-hard border-r border-bg-medium flex flex-col items-center py-6 gap-6 shrink-0">
+    <div className="w-full h-16 lg:w-16 lg:h-full bg-bg-dark-hard border-t lg:border-t-0 lg:border-r border-bg-medium flex flex-row lg:flex-col justify-around lg:justify-start items-center px-2 py-0 lg:px-0 lg:py-6 gap-0 lg:gap-6 shrink-0 z-50">
       {navItems.map((item) => {
         const Icon = item.icon
         const isActive = currentSection === item.name
@@ -54,7 +54,7 @@ export default function Sidebar() {
             <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
 
             {/* Tooltip or Label */}
-            <span className="absolute left-12 px-2 py-1 bg-bg-dark border border-bg-medium text-fg text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[100]">
+            <span className="hidden lg:block absolute left-12 px-2 py-1 bg-bg-dark border border-bg-medium text-fg text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-[100]">
               {item.name}
             </span>
           </a>
